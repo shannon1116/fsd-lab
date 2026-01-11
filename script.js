@@ -217,7 +217,6 @@ const pixellRiverEmployees = [
 
 window.onload = function() {
     populateListFromData();
-    populateTableFromData();
 };
 
 function populateListFromData() {
