@@ -9,22 +9,13 @@
             <p>Welcome!</p>
         </header>
         <main>
-            <table onload="populateTableFromData()" id="employeeTable">
-                <h3 id="employeeData">Employees</h3>
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Department</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <h3>Employees</h3>
+            <ol onload="populateListFromData()" id="employeeList">
 
-                </tbody>
-            </table>
+            </ol>
         </main>
         <footer>
-            <p>Copyright Pixell River Financial.</p>
+            <p>Copyright Pixell River Financial <div id="date"></div></p>
         </footer>
         <script src="script.js"></script>
     </body>

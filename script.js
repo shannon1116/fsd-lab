@@ -216,24 +216,32 @@ const pixellRiverEmployees = [
 ]
 
 window.onload = function() {
+    populateListFromData();
     populateTableFromData();
 };
 
-function populateTableFromData() {
-    const departments = pixellRiverEmployees
-    const tableBody = document.querySelector('#employeeTable tbody');
-    tableBody.innerHTML = '';
+function populateListFromData() {
+    const ul = document.createElement("ul");
+    const list = document.querySelector("#employeeList");
+    let departments = pixellRiverEmployees;
 
-    departments.forEach((department => {
+    departments.forEach(department => {
+        const departmentLi = document.createElement("li");
+        departmentLi.textContent = department.name;
+
+        const employeeUl = document.createElement("ul");
         department.employees.forEach(employee => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-            <td>${employee.firstName}</td>
-            <td>${employee.lastName}</td>
-            <td>${department.name}</td>
-            `;
+            const employeeLi = document.createElement("li");
+            employeeLi.textContent = `${employee.firstName} ${employee.lastName}`;
+            employeeUl.appendChild(employeeLi);
+        });
 
-            tableBody.appendChild(row);
-        })
-    }));
+        departmentLi.appendChild(employeeUl);
+        ul.appendChild(departmentLi);
+    });
+
+    list.appendChild(ul);
 }
+
+const d = new Date();
+document.getElementById("date").innerHTML = d;
