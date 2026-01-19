@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import './components/departments/departments'
 import './components/common/footer/footer'
