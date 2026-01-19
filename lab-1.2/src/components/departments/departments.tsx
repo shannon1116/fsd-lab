@@ -225,8 +225,6 @@ const pixellRiverEmployees: Departments[] = [
     }
 ]
 
-
-
 function DepartmentsDisplay({
     departmentEmployees
 }: {
@@ -234,31 +232,33 @@ function DepartmentsDisplay({
 }) {
     return (
         <>
-        <header>Pixell River Financial</header>
-              <h2>Employees</h2>
-              <ul>
-              {departmentEmployees.map(department =>(
-                <li key={department.name}>
-                <strong>{department.name}</strong>
-                <ul>
-              {department.employees.map(employee => (
-                <li key={department.name}>
-                {employee.firstName} {employee.lastName}
-                </li>
-              ))}
-              </ul>
-              </li>
-              )
+        <header>
+            <h1>Pixell River Financial</h1>
+        </header>
+            <h2>Employees</h2>
+            <ul>
+                {departmentEmployees.map(department =>(
+                    <li key={department.name}>
+                        <strong>{department.name}</strong>
+                            <ul>
+                                {department.employees.map(employee => (
+                                    <li key={department.name}>
+                                        {employee.firstName} {employee.lastName}
+                                    </li>
+                                ))}
+                            </ul>
+                    </li>
+                )
               )}
-              </ul>
-            </>
+            </ul>
+        </>
     )
 }
 
 export default function DepartmentsList () {
     return (
         <>
-        <DepartmentsDisplay departmentEmployees={pixellRiverEmployees} />
+            <DepartmentsDisplay departmentEmployees={pixellRiverEmployees} />
         </>
     )
 }

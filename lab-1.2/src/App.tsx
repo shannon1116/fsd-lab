@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import './components/departments'
-import './components/footer'
-import DepartmentsList from './components/departments'
-import Footer from './components/footer'
+import './components/departments/departments'
+import './components/common/footer/footer'
+import DepartmentsList from './components/departments/departments'
+import Footer from './components/common/footer/footer'
 
 function App() {
 
