@@ -1,21 +1,30 @@
 import { useState } from "react";
 
-function EmployeeForm() {
+type EmployeeFormProps = {
+    onSubmit: (
+        department: string,
+        employee: { firstName: string; lastName: string }
+    ) => void;
+};
+
+export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [department, setDepartment] = useState("");
 
-    function handleChange(e) {
-        setFirstName(e.target.value);
-        setLastName(e.target.value);
-        setDepartment(e.target.value);
-    }
-
-    function handleSubmit(e) {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        alert(`${firstName} ${lastName} - ${department}`);
-    }
+
+        if (!firstName || !lastName || !department) return;
+
+        onSubmit(department, { firstName, lastName });
+
+        setFirstName("");
+        setLastName("");
+        setDepartment("");
     
+    };
+
     return (
     <>
     <form onSubmit={handleSubmit}>
@@ -25,7 +34,7 @@ function EmployeeForm() {
             firstName="firstName"
             id="firstName"
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
         />
     </label>
     <label htmlFor="lastName">Last Name:
@@ -34,14 +43,14 @@ function EmployeeForm() {
             lastName="lastName"
             id="lastName"
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
         />
     </label>
     <label>
         Department:
         <select
             value={department}
-            onChange={e => setDepartment(e.target.value)}
+            onChange={(e) => setDepartment(e.target.value)}
         >
             <option value="">Select a Department</option>
             <option value="Administration">Administration</option>
@@ -53,5 +62,3 @@ function EmployeeForm() {
     </>
     );
 }
-
-export default EmployeeForm;

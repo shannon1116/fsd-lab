@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { EmployeeForm } from "../employees/employees";
+
 type Departments = {
     name: string;
     employees: Employees[];
@@ -226,9 +229,9 @@ const pixellRiverEmployees: Departments[] = [
 ]
 
 function DepartmentsDisplay({
-    departmentEmployees
+    defaultDepartmentEmployees
 }: {
-    departmentEmployees: Departments[];
+    defaultDepartmentEmployees: Departments[];
 }) {
     return (
         <>
@@ -237,7 +240,7 @@ function DepartmentsDisplay({
         </header>
             <h2>Employees</h2>
             <ul>
-                {departmentEmployees.map(department =>(
+                {defaultDepartmentEmployees.map(department =>(
                     <li key={department.name}>
                         <strong>{department.name}</strong>
                             <ul>
@@ -256,9 +259,27 @@ function DepartmentsDisplay({
 }
 
 export default function DepartmentsList () {
+    const [departments, setDepartments] = useState<Departments[]>(
+        pixellRiverEmployees
+    );
+
+    const handleAddEmployee = (
+        departmentName: string,
+        employee: Employees
+    ) => {
+        setDepartments(prev =>
+            prev.map(department =>
+                department.name === departmentName
+                    ? { ...department, employees: [...department.employees, employee] }
+                    : department
+            )
+        );
+    };
+
     return (
         <>
-            <DepartmentsDisplay departmentEmployees={pixellRiverEmployees} />
+            <DepartmentsDisplay defaultDepartmentEmployees={departments} />
+            <EmployeeForm onSubmit={handleAddEmployee} />
         </>
-    )
+    );
 }
