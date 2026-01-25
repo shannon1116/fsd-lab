@@ -242,7 +242,7 @@ function DepartmentsDisplay({
                         <strong>{department.name}</strong>
                             <ul>
                                 {department.employees.map(employee => (
-                                    <li key={department.name}>
+                                    <li key={`${department.name}-${employee.firstName}-${employee.lastName}`}>
                                         {employee.firstName} {employee.lastName}
                                     </li>
                                 ))}
