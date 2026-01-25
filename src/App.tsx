@@ -3,6 +3,7 @@ import './components/departments/departments'
 import './components/common/footer/footer'
 import DepartmentsList from './components/departments/departments'
 import Footer from './components/common/footer/footer'
+import EmployeeForm from './components/employees/employees'
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
     <>
     <DepartmentsList />
     <Footer />
+    <EmployeeForm />
     </>
   )
 }
