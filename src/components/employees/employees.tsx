@@ -42,7 +42,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
     <label htmlFor="firstName">First Name:
         <input
             type="text"
-            firstname="firstName"
+            name="firstName"
             id="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -51,7 +51,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
     <label htmlFor="lastName">Last Name:
         <input
             type="text"
-            lastname="lastName"
+            name="lastName"
             id="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
