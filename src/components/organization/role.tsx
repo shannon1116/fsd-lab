@@ -1,6 +1,17 @@
-const Role = [
+export type Roles = {
+    name: string,
+    employees: Employees[];
+}
+
+export type Employees = {
+    firstName: string;
+    lastName: string;
+    department: string;
+}
+
+export const pixellRiverLeadershipRoles: Roles[] = [
     {
-        role: "CEO/Chair of Board",
+        name: "CEO/Chair of Board",
         employees: [
             {
                 firstName: "Jo-Anne",
@@ -10,7 +21,7 @@ const Role = [
         ]
     },
     {
-        role: "COO/VP Operations",
+        name: "COO/VP Operations",
         employees: [
             {
                 firstName: "Jackson",
@@ -20,7 +31,7 @@ const Role = [
         ]
     },
     {
-        role: "CFO/VP Administration",
+        name: "CFO/VP Administration",
         employees: [
             {
                 firstName: "Susan",
@@ -30,7 +41,7 @@ const Role = [
         ]
     },
     {
-        role: "VP Client Services",
+        name: "VP Client Services",
         employees: [
             {
                 firstName: "Richa",
@@ -40,7 +51,7 @@ const Role = [
         ]
     },
     {
-        role: "CIO",
+        name: "CIO",
         employees: [
             {
                 firstName: "Josee",
@@ -50,7 +61,7 @@ const Role = [
         ]
     },
     {
-        role: "VP Sales & Marketing",
+        name: "VP Sales & Marketing",
         employees: [
             {
                 firstName: "Vincent",
@@ -60,7 +71,7 @@ const Role = [
         ]
     },
     {
-        role: "Director",
+        name: "Director",
         employees: [
             {
                 firstName: "Rupa",
@@ -105,7 +116,7 @@ const Role = [
         ]
     },
     {
-        role: "Manager",
+        name: "Manager",
         employees: [
             {
                 firstName: "Abd",
@@ -153,7 +164,7 @@ const Role = [
                 department: "Customer Experience and Community Eng."
             },
             {
-                firstNames: "Roland",
+                firstName: "Roland",
                 lastName: "Wei",
                 department: "Sales"
             },
@@ -165,12 +176,12 @@ const Role = [
             {
                 firstName: "Esra",
                 lastName: "Sedge",
-                role: "Contract Management"
+                department: "Contract Management"
             },
             {
                 firstName: "Pranee",
                 lastName: "Tan",
-                role: "Compliance Management"
+                department: "Compliance Management"
             },
             {
                 firstName: "Karmen",
@@ -205,7 +216,7 @@ const Role = [
         ]
     },
     {
-        role: "Chief Architect",
+        name: "Chief Architect",
         employees: [
             {
                 firstName: "Cheryl",
@@ -215,7 +226,7 @@ const Role = [
         ]
     },
     {
-        role: "Solution Architect",
+        name: "Solution Architect",
         employees: [
             {
                 firstName: "Kris",
@@ -225,7 +236,7 @@ const Role = [
         ]
     },
     {
-        role: "Lead Developer",
+        name: "Lead Developer",
         employees: [
             {
                 firstName: "Payton",
@@ -235,7 +246,7 @@ const Role = [
         ]
     },
     {
-        role: "Business Analyst",
+        name: "Business Analyst",
         employees: [
             {
                 firstName: "Linda",
