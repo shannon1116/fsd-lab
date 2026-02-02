@@ -1,5 +1,6 @@
 import type { Roles } from './role';
 import { pixellRiverLeadershipRoles } from './role';
+import "./organization.css";
 
 function OrganizationDisplay({
     rolesEmployees
@@ -8,17 +9,14 @@ function OrganizationDisplay({
 }) {
     return (
         <>
-        <header>
-            <h1>Pixell River Financial</h1>
-        </header>
             <h2>Leadership and Management</h2>
             <ul>
                 {rolesEmployees.map(role =>(
-                    <li key={role.name}>
+                    <li className="roles" key={role.name}>
                         <strong>{role.name}</strong>
-                            <ul>
+                            <ul >
                                 {role.employees.map(employee => (
-                                    <li key={role.name}>
+                                    <li className="employees" key={role.name}>
                                         {employee.firstName} {employee.lastName}
                                     </li>
                                 ))}
