@@ -6,7 +6,6 @@ export type Roles = {
 export type Employees = {
     firstName: string;
     lastName: string;
-    department: string;
 }
 
 export const pixellRiverLeadershipRoles: Roles[] = [
@@ -15,8 +14,7 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Jo-Anne",
-                lastName: "Sinclair",
-                department: "Executive"
+                lastName: "Sinclair"
             }
         ]
     },
@@ -25,8 +23,7 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Jackson",
-                lastName: "Smith",
-                department: "Operations"
+                lastName: "Smith"
             }
         ]
     },
@@ -35,8 +32,7 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Susan",
-                lastName: "Thomas",
-                department: "Administration"
+                lastName: "Thomas"
             }
         ]
     },
@@ -45,8 +41,7 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Richa",
-                lastName: "Kaur",
-                department: "Client Services"
+                lastName: "Kaur"
             }
         ]
     },
@@ -55,8 +50,7 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Josee",
-                lastName: "Benjamin",
-                department: "Information Security"
+                lastName: "Benjamin"
             }
         ]
     },
@@ -65,153 +59,97 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Vincent",
-                lastName: "Grey",
-                department: "Sales & Marketing"
+                lastName: "Gray"
             }
         ]
     },
     {
-        name: "Director",
+        name: "Director Financial and Audit Svcs",
         employees: [
             {
                 firstName: "Rupa",
-                lastName: "Kharki",
-                department: "Financial and Audit Svcs"
-            },
-            {
-                firstName: "Xun",
-                lastName: "Kuang",
-                department: "Human Resources"
-            },
-            {
-                firstName: "Stien",
-                lastName: "Pedersen",
-                department: "Legal Services/General Counsel"
-            },
-            {
-                firstName: "Sandra",
-                lastName: "Bear",
-                department: "Information Technology"
-            },
-            {
-                firstName: "Gus",
-                lastName: "Blue",
-                department: "Information Security and CISSO"
-            },
-            {
-                firstName: "Sam",
-                lastName: "Kong",
-                department: "Accounting"
-            },
-            {
-                firstName: "Valentine",
-                lastName: "Smith",
-                department: "Physical Security"
-            },
-            {
-                firstName: "Mariya",
-                lastName: "Kaperski",
-                department: "Facilities"
+                lastName: "Kharki"
             }
         ]
     },
     {
-        name: "Manager",
+        name: "Director Human Resources",
+        employees: [
+            {
+                firstName: "Xun",
+                lastName: "Kuang"
+            }
+        ]
+    },
+    {
+        name: "Director Legal Services/General Counsel",
+        employees: [
+            {
+                firstName: "Stien",
+                lastName: "Pedersen"
+            }
+        ]
+    },
+    {
+        name: "Director Information Technology",
+        employees: [
+            {
+                firstName: "Sandra",
+                lastName: "Bear"
+            }
+        ]
+    },
+    {
+        name: "Director Information Security and CISSO",
+        employees: [
+            {
+                firstName: "Gus",
+                lastName: "Blue"
+            }
+        ]
+    },
+    {
+        name: "Directory Accounting",
+        employees: [
+            {
+                firstName: "Sam",
+                lastName: "Kong"
+            }
+        ]
+    },
+    {
+        name: "Directory Physical Security",
+        employees: [
+            {
+                firstName: "Valentine",
+                lastName: "Smith"
+            }
+        ]
+    },
+    {
+        name: "Director Facilities",
+        employees: [
+            {
+                firstName: "Mariya",
+                lastName: "Kaperski"
+            }
+        ]
+    },
+    {
+        name: "Manager, Business Continuity and Disaster Recovery",
         employees: [
             {
                 firstName: "Abd",
-                lastName: "al-Hamid Alami",
-                department: "Business Continuity and Disaster Recovery"
-            },
+                lastName: "al-Hamid Alami"
+            }
+        ]
+    },
+    {
+        name: "Manager, Internal Audit",
+        employees: [
             {
                 firstName: "Victoria",
-                lastName: "Gray",
-                department: "Internal Audit"
-            },
-            {
-                firstName: "Jean",
-                lastName: "Ngoy",
-                department: "Security Architecture"
-            },
-            {
-                firstName: "Isaac",
-                lastName: "Smith",
-                department: "Application Solutions"
-            },
-            {
-                firstName: "Samantha",
-                lastName: "Nettle",
-                department: "Operational Risk"
-            },
-            {
-                firstName: "Yolanda",
-                lastName: "Ferreira",
-                department: "Vendor Relations"
-            },
-            {
-                firstName: "Samir",
-                lastName: "Hassan",
-                department: "Purchasing"
-            },
-            {
-                firstName: "Yuna",
-                lastName: "Aikawa",
-                department: "Communications"
-            },
-            {
-                firstName: "Jonathan",
-                lastName: "Carberry",
-                department: "Customer Experience and Community Eng."
-            },
-            {
-                firstName: "Roland",
-                lastName: "Wei",
-                department: "Sales"
-            },
-            {
-                firstName: "Pran",
-                lastName: "Singh",
-                department: "Marketing"
-            },
-            {
-                firstName: "Esra",
-                lastName: "Sedge",
-                department: "Contract Management"
-            },
-            {
-                firstName: "Pranee",
-                lastName: "Tan",
-                department: "Compliance Management"
-            },
-            {
-                firstName: "Karmen",
-                lastName: "Spruce",
-                department: "IT End User Service Desk"
-            },
-            {
-                firstName: "Hayder",
-                lastName: "Katirci",
-                department: "IT End User Computing"
-            },
-            {
-                firstName: "Jill",
-                lastName: "Harkness",
-                department: "IT Telecom and Infrastructure"
-            },
-            {
-                firstName: "Tim",
-                lastName: "Morrison",
-                department: "Data Center and Hosting Services"
-            },
-            {
-                firstName: "Aleksandr",
-                lastName: "Milosevic",
-                department: "IT Risk Management"
-            },
-            {
-                firstName: "Jim",
-                lastName: "Wingnut",
-                department: "Project Management Office"
+                lastName: "Gray"
             }
         ]
     },
@@ -220,28 +158,106 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Cheryl",
-                lastName: "Guru",
-                department: "Architect"
+                lastName: "Guru"
             }
         ]
     },
     {
-        name: "Solution Architect",
+        name: "Manager, Security Architecture",
+        employees: [
+            {
+                firstName: "Jean",
+                lastName: "Ngoy"
+            }
+        ]
+    },
+    {
+        name: "Solution Architect, Online Banking",
         employees: [
             {
                 firstName: "Kris",
-                lastName: "Gold",
-                department: "Online Banking"
+                lastName: "Gold"
             }
         ]
     },
     {
-        name: "Lead Developer",
+        name: "Manager, Application Solutions",
+        employees: [
+            {
+                firstName: "Isaac",
+                lastName: "Smith"
+            }
+        ]
+    },
+    {
+        name: "Lead Developer, Online Banking",
         employees: [
             {
                 firstName: "Payton",
-                lastName: "Frost",
-                department: "Online Banking"
+                lastName: "Frost"
+            }
+        ]
+    },
+    {
+        name: "Manager, Operational Risk",
+        employees: [
+            {
+                firstName: "Samantha",
+                lastName: "Nettle"
+            }
+        ]
+    },
+    {
+        name: "Manager, Vendor Relations",
+        employees: [
+            {
+                firstName: "Yolanda",
+                lastName: "Ferreira"
+            }
+        ]
+    },
+    {
+        name: "Manager, Purchasing",
+        employees: [
+            {
+                firstName: "Samir",
+                lastName: "Hassan"
+            }
+        ]
+    },
+    {
+        name: "Manager, Coummunications",
+        employees: [
+            {
+                firstName: "Yuna",
+                lastName: "Aikawa"
+            }
+        ]
+    },
+    {
+        name: "Manager Customer Experience and Community Eng.",
+        employees: [
+            {
+                firstName: "Jonathan",
+                lastName: "Carberry"
+            }
+        ]
+    },
+    {
+        name: "Manager of Sales",
+        employees: [
+            {
+                firstName: "Roland",
+                lastName: "Wei"
+            }
+        ]
+    },
+    {
+        name: "Manager, Marketing",
+        employees: [
+            {
+                firstName: "Pran",
+                lastName: "Singh"
             }
         ]
     },
@@ -250,9 +266,80 @@ export const pixellRiverLeadershipRoles: Roles[] = [
         employees: [
             {
                 firstName: "Linda",
-                lastName: "Analyst",
-                department: "Online Banking"
+                lastName: "Analyst"
             }
-        ]   
+        ]
+    },
+    {
+        name: "Manager, Contract Management",
+        employees: [
+            {
+                firstName: "Esra",
+                lastName: "Sedge"
+            }
+        ]
+    },
+    {
+        name: "Manager, Compliance Management",
+        employees: [
+            {
+                firstName: "Pranee",
+                lastName: "Tan"
+            }
+        ]
+    },
+    {
+        name: "Manager IT End User Service Desk",
+        employees: [
+            {
+                firstName: "Karmen",
+                lastName: "Spruce"
+            }
+        ]
+    },
+    {
+        name: "Manager IT End User Computing",
+        employees: [
+            {
+                firstName: "Haydar",
+                lastName: "Katirci"
+            }
+        ]
+    },
+    {
+        name: "Manager IT Telecom and Infrastructure",
+        employees: [
+            {
+                firstName: "Jill",
+                lastName: "Harkness"
+            }
+        ]
+    },
+    {
+        name: "Manager, Data Center and Hosting Services",
+        employees: [
+            {
+                firstName: "Tim",
+                lastName: "Morrison"
+            }
+        ]
+    },
+    {
+        name: "Manager of IT Risk Management",
+        employees: [
+            {
+                firstName: "Aleksandr",
+                lastName: "Milosevic"
+            }
+        ]
+    },
+    {
+        name: "Manager IT, Project Management Office",
+        employees: [
+            {
+                firstName: "Jim",
+                lastName: "Wingnut"
+            }
+        ]
     }
 ]

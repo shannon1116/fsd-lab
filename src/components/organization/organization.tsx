@@ -1,4 +1,4 @@
-import type { Roles, Employees } from './role';
+import type { Roles } from './role';
 import { pixellRiverLeadershipRoles } from './role';
 
 function OrganizationDisplay({
@@ -14,11 +14,11 @@ function OrganizationDisplay({
             <h2>Leadership and Management</h2>
             <ul>
                 {rolesEmployees.map(role =>(
-                    <li key={department.name}>
-                        <strong>{department.name}</strong>
+                    <li key={role.name}>
+                        <strong>{role.name}</strong>
                             <ul>
-                                {department.employees.map(employee => (
-                                    <li key={department.name}>
+                                {role.employees.map(employee => (
+                                    <li key={role.name}>
                                         {employee.firstName} {employee.lastName}
                                     </li>
                                 ))}
@@ -31,10 +31,10 @@ function OrganizationDisplay({
     )
 }
 
-export default function DepartmentsList () {
+export default function OrganizationList () {
     return (
         <>
-            <DepartmentsDisplay departmentEmployees={pixellRiverEmployees} />
+            <OrganizationDisplay rolesEmployees={pixellRiverLeadershipRoles} />
         </>
     )
 }

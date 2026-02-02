@@ -1,19 +1,20 @@
-import type { Friends } from "../../../types/friends";
-import FriendsList from "../../friends/friends_list/friends_list";
+import type { Roles, Employees } from "../../organization/role";
+import { pixellRiverLeadershipRoles } from "../../organization/role";
+import OrganizationList from "../../organization/organization";
 
 function Organization(
     {
-        friends
+        roles
     }:
     {
-        friends: Friends[]
+        roles: Roles[]
     }
 ) {
     return(
         <>
         <main>
         <h2>Leadership and Management</h2>
-        <FriendsList />
+        <OrganizationList />
         </main>
         </>
     )
