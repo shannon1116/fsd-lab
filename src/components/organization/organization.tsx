@@ -29,7 +29,7 @@ function OrganizationDisplay({
     )
 }
 
-export default function OrganizationList () {
+export function OrganizationList () {
     return (
         <>
             <OrganizationDisplay rolesEmployees={pixellRiverLeadershipRoles} />
