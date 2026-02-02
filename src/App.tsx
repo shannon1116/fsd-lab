@@ -1,16 +1,20 @@
-import './App.css'
-import './components/departments/departments'
-import './components/common/footer/footer'
-import DepartmentsList from './components/departments/departments'
-import Footer from './components/common/footer/footer'
+import { Routes, Route } from "react-router-dom";
+
+import './App.css';
+import './components/departments/departments';
+import { Layout } from './components/common/layout/Layout';
+import DepartmentsList from './components/departments/departments';
+import Organization from './components/pages/organization/organization-page';
 
 function App() {
-
+  
   return (
-    <>
-    <DepartmentsList />
-    <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/employees" element={<DepartmentsList />}/>
+        <Route path="/organization" element={<Organization />}/>
+      </Route>
+    </Routes>
   )
 }
 

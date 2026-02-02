@@ -10,9 +10,6 @@ function DepartmentsDisplay({
 }) {
     return (
         <>
-        <header>
-            <h1>Pixell River Financial</h1>
-        </header>
             <h2>Employees</h2>
             <ul>
                 {defaultDepartmentEmployees.map(department =>(
