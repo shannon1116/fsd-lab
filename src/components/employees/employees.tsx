@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import useFormInput from "../../hooks/useFormInput";
+
 type EmployeeFormProps = {
     onSubmit: (
         department: string,
@@ -8,32 +10,33 @@ type EmployeeFormProps = {
 };
 
 export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const firstName = useFormInput(value => value.trim().length >= 3);
+    const lastName = useFormInput(value => value.trim().length >= 3);
     const [department, setDepartment] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const formIsValid = firstName.isValid && lastName.isValid && department.trim() !== "";
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!firstName || !lastName || !department) {
-            setError("Fields cannot be empty");
-            setSuccess("")
+        if (!formIsValid) {
+            setError("Please fill in all fields correctly.");
+            setSuccess("");
             return;
-        } else if (firstName.trim().length < 3 || lastName.trim().length < 3) {
-            setError("Both names must be at least 3 characters");
-            setSuccess("")
-            return;
-        } else {
-            onSubmit(department, { firstName, lastName });
-            setError("");
-            setSuccess("Form is valid!");
-            setFirstName("");
-            setLastName("");
-            setDepartment("");
         }
-    
+
+        onSubmit(department, {
+            firstName: firstName.value,
+            lastName: lastName.value,
+        });
+
+        setError("");
+        setSuccess("Form is valid!");
+        firstName.inputReset();
+        lastName.inputReset();
+        setDepartment("");
     };
 
     return (
@@ -42,19 +45,19 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
     <label htmlFor="firstName">First Name:
         <input
             type="text"
-            name="firstName"
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="Enter First Name"
+            value={firstName.value}
+            onChange={firstName.valueChangeHandler}
+            onBlur={firstName.inputBlurHandler}
         />
     </label>
     <label htmlFor="lastName">Last Name:
         <input
             type="text"
-            name="lastName"
-            id="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Enter Last Name"
+            value={lastName.value}
+            onChange={lastName.valueChangeHandler}
+            onBlur={lastName.inputBlurHandler}
         />
     </label>
     <label>
@@ -73,7 +76,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             <option value="Financial Services">Financial Services</option>
             <option value="Human Resources">Human Resources</option>
             <option value="Information Technology">Information Technology</option>
-            <option value="IT Technician">IT Techician</option>
+            <option value="IT Technician">IT Technician</option>
         </select>
     </label>
     <input type="submit"/>
