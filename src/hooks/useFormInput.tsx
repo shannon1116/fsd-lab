@@ -1,33 +1,31 @@
 import { useState } from "react";
 
-const useInput = (validateValue = () => true) => {
+const useFormInput = (validateValue: (value: string) => { isValid: boolean; errors: string[] }) => {
     const [enteredValue, setEnteredValue] = useState("");
-    const [isTouched, setIsTouched] = useState(false);
+    const [errors, setErrors] = useState<string[]>([]);
 
-    const valueIsValid = validateValue(enteredValue);
-    const hasError = !valueIsValid && isTouched;
-
-    const valueChangeHandler = (event) => {
+    const valueChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEnteredValue(event.target.value);
-    };
-
-    const inputBlurHandler = () => {
-        setIsTouched(true);
     };
 
     const inputReset = () => {
         setEnteredValue("");
-        setIsTouched(false);
+        setErrors([]);
+    };
+
+    const validate = () => {
+        const result = validateValue(enteredValue);
+        setErrors(result.errors);
+        return result.isValid;
     };
 
     return {
         value: enteredValue,
-        isValid: valueIsValid,
-        hasError,
+        errors,
         valueChangeHandler,
-        inputBlurHandler,
         inputReset,
+        validate,
     };
 };
 
-export default useInput;
+export default useFormInput;

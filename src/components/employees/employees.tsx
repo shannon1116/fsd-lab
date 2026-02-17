@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import useFormInput from "../../hooks/useFormInput";
+import { validateFirstName } from "../../services/employeeService";
 
 type EmployeeFormProps = {
     onSubmit: (
@@ -10,18 +11,22 @@ type EmployeeFormProps = {
 };
 
 export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
-    const firstName = useFormInput(value => value.trim().length >= 3);
-    const lastName = useFormInput(value => value.trim().length >= 3);
+    const firstName = useFormInput(validateFirstName);
+    const lastName = useFormInput(validateFirstName);
+    
     const [department, setDepartment] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    const formIsValid = firstName.isValid && lastName.isValid && department.trim() !== "";
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!formIsValid) {
+        const firstNameValid = firstName.validate();
+        const lastNameValid = lastName.validate();
+        const departmentValid = department.trim() !== "";
+
+        if (!firstNameValid || !lastNameValid || !departmentValid) {
             setError("Please fill in all fields correctly.");
             setSuccess("");
             return;
@@ -44,20 +49,20 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
     <form onSubmit={handleSubmit}>
     <label htmlFor="firstName">First Name:
         <input
+            id="firstName"
             type="text"
             placeholder="Enter First Name"
             value={firstName.value}
             onChange={firstName.valueChangeHandler}
-            onBlur={firstName.inputBlurHandler}
         />
     </label>
     <label htmlFor="lastName">Last Name:
         <input
+            id="lastName"
             type="text"
             placeholder="Enter Last Name"
             value={lastName.value}
             onChange={lastName.valueChangeHandler}
-            onBlur={lastName.inputBlurHandler}
         />
     </label>
     <label>
