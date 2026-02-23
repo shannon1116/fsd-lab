@@ -1,20 +1,20 @@
 import { useState } from "react";
 
-import useFormInput from "../../hooks/useFormInput";
-import { validateFirstName } from "../../services/employeeService";
+//import useFormInput from "../../../hooks/useFormInput";
+//import { validateFirstName } from "../../../services/employeeService";
 
-type EmployeeFormProps = {
+type OrganizationFormProps = {
     onSubmit: (
-        department: string,
+        roles: string,
         employee: { firstName: string; lastName: string }
     ) => void;
 };
 
-export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
+export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
     const firstName = useFormInput(validateFirstName);
     const lastName = useFormInput(validateFirstName);
     
-    const [department, setDepartment] = useState("");
+    const [role, setRole] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
@@ -24,15 +24,15 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
 
         const firstNameValid = firstName.validate();
         const lastNameValid = lastName.validate();
-        const departmentValid = department.trim() !== "";
+        const roleValid = role.trim() !== "";
 
-        if (!firstNameValid || !lastNameValid || !departmentValid) {
+        if (!firstNameValid || !lastNameValid || !roleValid) {
             setError("Please fill in all fields correctly.");
             setSuccess("");
             return;
         }
 
-        onSubmit(department, {
+        onSubmit(role, {
             firstName: firstName.value,
             lastName: lastName.value,
         });
@@ -41,7 +41,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
         setSuccess("Form is valid!");
         firstName.inputReset();
         lastName.inputReset();
-        setDepartment("");
+        setRole("");
     };
 
     return (
@@ -65,24 +65,15 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             onChange={lastName.valueChangeHandler}
         />
     </label>
-    <label>
-        Department:
-        <select
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-        >
-            <option value="">Select a Department</option>
-            <option value="Administration">Administration</option>
-            <option value="Audit">Audit</option>
-            <option value="Banking Operations">Banking Operations</option>
-            <option value="Communication">Communications</option>
-            <option value="Corporate Services">Corporate Services</option>
-            <option value="Facilities">Facilities</option>
-            <option value="Financial Services">Financial Services</option>
-            <option value="Human Resources">Human Resources</option>
-            <option value="Information Technology">Information Technology</option>
-            <option value="IT Technician">IT Technician</option>
-        </select>
+    <form onSubmit={handleSubmit}>
+    <label htmlFor="roleName"> Role:
+        <input
+            id="roleName"
+            type="text"
+            placeholder="Enter Role"
+            value={firstName.value}
+            onChange={firstName.valueChangeHandler}
+        />
     </label>
     <input type="submit"/>
     </form>

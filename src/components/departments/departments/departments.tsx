@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import type { Departments, Employees } from "../departmentEmployees/departmentEmployeesData";
-import { pixellRiverEmployees } from "../departmentEmployees/departmentEmployeesData";
-import { EmployeeForm } from "../employees/employees";
+import type { Departments, Employees } from "../e/departmentEmployees/departmentEmployeesData";
+import { pixellRiverEmployees } from "../e/departmentEmployees/departmentEmployeesData";
+import { EmployeeForm } from "../e/employees/employees";
 import {
     initializeDepartments,
     getDepartments,
