@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Departments, Employees } from "../departmentEmployees/departmentEmployeesData";
 import { pixellRiverEmployees } from "../departmentEmployees/departmentEmployeesData";
 import { EmployeeForm } from "../employees/employees";
+import {
+    initializeDepartments,
+    getDepartments,
+    addEmployee,
+} from "../../repository/employeeRepo";
 
 function DepartmentsDisplay({
     defaultDepartmentEmployees
@@ -31,21 +36,19 @@ function DepartmentsDisplay({
 }
 
 export default function DepartmentsList () {
-    const [departments, setDepartments] = useState<Departments[]>(
-        pixellRiverEmployees
-    );
+    const [departments, setDepartments] = useState<Departments[]>([]);
+    
+    useEffect(() => {
+        initializeDepartments(pixellRiverEmployees);
+        setDepartments(getDepartments());
+    }, []);
 
     const handleAddEmployee = (
         departmentName: string,
         employee: Employees
     ) => {
-        setDepartments(prev =>
-            prev.map(department =>
-                department.name === departmentName
-                    ? { ...department, employees: [...department.employees, employee] }
-                    : department
-            )
-        );
+        const updated = addEmployee(departmentName, employee);
+        setDepartments([...updated]);
     };
 
     return (
