@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import type { Departments, Employees } from "../e/departmentEmployees/departmentEmployeesData";
-import { pixellRiverEmployees } from "../e/departmentEmployees/departmentEmployeesData";
-import { EmployeeForm } from "../e/employees/employees";
+import type { Departments, Employees } from "../../departments/departmentEmployees/departmentEmployeesData";
+import { pixellRiverEmployees } from "../../departments/departmentEmployees/departmentEmployeesData";
+import { EmployeeForm } from "../../departments/employees/employees";
 import {
     initializeDepartments,
     getDepartments,
     addEmployee,
-} from "../../repository/employeeRepo";
+} from "../../../repository/employeeRepo";
 
 function DepartmentsDisplay({
     defaultDepartmentEmployees

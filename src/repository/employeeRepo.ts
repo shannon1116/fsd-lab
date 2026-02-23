@@ -1,4 +1,4 @@
-import type { Departments, Employees } from "../components/e/departmentEmployees/departmentEmployeesData";
+import type { Departments, Employees } from "../components/departments/departmentEmployees/departmentEmployeesData";
 
 let departmentsData: Departments[] = [];
 
