@@ -5,7 +5,7 @@ import { validateFirstName } from "../../services/employeeService";
 
 type OrganizationFormProps = {
     onSubmit: (
-        roles: string,
+        role: string,
         employee: { firstName: string; lastName: string }
     ) => void;
 };
@@ -13,8 +13,8 @@ type OrganizationFormProps = {
 export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
     const firstName = useFormInput(validateFirstName);
     const lastName = useFormInput(validateFirstName);
+    const role = useFormInput(validateFirstName);
     
-    const [role, setRole] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
@@ -24,7 +24,7 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
 
         const firstNameValid = firstName.validate();
         const lastNameValid = lastName.validate();
-        const roleValid = role.trim() !== "";
+        const roleValid = role.validate();
 
         if (!firstNameValid || !lastNameValid || !roleValid) {
             setError("Please fill in all fields correctly.");
@@ -32,16 +32,16 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
             return;
         }
 
-        onSubmit(role, {
+        onSubmit(role.value, {
             firstName: firstName.value,
-            lastName: lastName.value,
+            lastName: lastName.value
         });
 
         setError("");
         setSuccess("Form is valid!");
         firstName.inputReset();
         lastName.inputReset();
-        setRole("");
+        role.inputReset();
     };
 
     return (
@@ -65,14 +65,13 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
             onChange={lastName.valueChangeHandler}
         />
     </label>
-    <form onSubmit={handleSubmit}>
-    <label htmlFor="roleName"> Role:
+    <label htmlFor="role"> Role:
         <input
-            id="roleName"
+            id="role"
             type="text"
             placeholder="Enter Role"
-            value={firstName.value}
-            onChange={firstName.valueChangeHandler}
+            value={role.value}
+            onChange={role.valueChangeHandler}
         />
     </label>
     <input type="submit"/>

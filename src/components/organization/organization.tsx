@@ -1,5 +1,7 @@
-import type { Roles } from './role';
+import { useState, useEffect } from "react";
+import type { Roles, Employees } from './role';
 import { pixellRiverLeadershipRoles } from './role';
+import { OrganizationForm } from "./organizationForm";
 import "./organization.css";
 
 function OrganizationDisplay({
@@ -29,10 +31,34 @@ function OrganizationDisplay({
     )
 }
 
-export function OrganizationList () {
+export default function OrganizationList () {
+    const [roles, setRoles] = useState<Roles[]>(
+        pixellRiverLeadershipRoles
+    );
+
+    const handleAddRole = (
+        roleName: string,
+        employee: Employees
+    ) => {
+        setRoles(prev => {
+            const existingRole = prev.find(role => role.name === roleName);
+
+            if (existingRole) {
+                return prev.map(role =>
+                    role.name === roleName
+                        ? { ...role, employees: [...role.employees, employee] }
+                        : role
+                );
+            };
+
+            return [...prev, { name: roleName, employees: [employee] }];
+        });
+    };
+
     return (
         <>
-            <OrganizationDisplay rolesEmployees={pixellRiverLeadershipRoles} />
+            <OrganizationDisplay rolesEmployees={roles} />
+            <OrganizationForm onSubmit={handleAddRole} />
         </>
-    )
+    );
 }
