@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import useFormInput from "../../hooks/useFormInput";
-import { validateFirstName } from "../../services/employeeService";
+import { validateFirstName, validateLastName, validateRole } from "../../services/organizationService";
 
 type OrganizationFormProps = {
     onSubmit: (
