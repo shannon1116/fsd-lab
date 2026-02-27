@@ -32,7 +32,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             setDepartmentError("")
         }
 
-        if (!firstNameValid || !lastNameValid) {
+        if (!firstNameValid || !lastNameValid || !departmentValid) {
             setSuccess("");
             return;
         }
@@ -42,7 +42,6 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             lastName: lastName.value,
         });
 
-        setError("");
         setSuccess("Form is valid!");
         firstName.inputReset();
         lastName.inputReset();

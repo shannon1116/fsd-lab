@@ -12,10 +12,9 @@ type OrganizationFormProps = {
 
 export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
     const firstName = useFormInput(validateFirstName);
-    const lastName = useFormInput(validateFirstName);
-    const role = useFormInput(validateFirstName);
+    const lastName = useFormInput(validateLastName);
+    const role = useFormInput(validateRole);
     
-    const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
 
@@ -26,8 +25,7 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
         const lastNameValid = lastName.validate();
         const roleValid = role.validate();
 
-        if (!firstNameValid || !lastNameValid || !roleValid) {
-            setError("Please fill in all fields correctly.");
+        if (!firstNameValid || !lastNameValid || !roleValid ) {
             setSuccess("");
             return;
         }
@@ -37,7 +35,6 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
             lastName: lastName.value
         });
 
-        setError("");
         setSuccess("Form is valid!");
         firstName.inputReset();
         lastName.inputReset();
@@ -56,6 +53,11 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
             onChange={firstName.valueChangeHandler}
         />
     </label>
+    
+    {firstName.errors.map((err, i) => (
+        <p key={i} style={{ color: "red" }}>{err}</p>
+    ))}
+    
     <label htmlFor="lastName">Last Name:
         <input
             id="lastName"
@@ -65,6 +67,11 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
             onChange={lastName.valueChangeHandler}
         />
     </label>
+    
+    {lastName.errors.map((err, i) => (
+        <p key={i} style={{ color: "red" }}>{err}</p>
+    ))}
+
     <label htmlFor="role"> Role:
         <input
             id="role"
@@ -74,9 +81,13 @@ export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
             onChange={role.valueChangeHandler}
         />
     </label>
+    
+    {role.errors.map((err, i) => (
+        <p key={i} style={{ color: "red" }}>{err}</p>
+    ))}
+    
     <input type="submit"/>
     </form>
-    {error && <p style={{ color: "red"}}>{error}</p>}
     {success && <p style={{ color: "green" }}>{success}</p>}
     </>
     );
