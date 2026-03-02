@@ -1,4 +1,4 @@
-import { OrganizationList } from "../../organization/organization";
+import OrganizationList from "../../organization/organization";
 
 function Organization() {
     return(

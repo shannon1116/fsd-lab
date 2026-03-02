@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import useFormInput from "../../hooks/useFormInput";
-import { validateFirstName } from "../../services/employeeService";
+import useFormInput from "../../../hooks/useFormInput";
+import { validateFirstName, validateLastName } from "../../../services/employeeService";
 
 type EmployeeFormProps = {
     onSubmit: (
@@ -12,10 +12,10 @@ type EmployeeFormProps = {
 
 export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
     const firstName = useFormInput(validateFirstName);
-    const lastName = useFormInput(validateFirstName);
+    const lastName = useFormInput(validateLastName);
     
     const [department, setDepartment] = useState("");
-    const [error, setError] = useState("");
+    const [departmentError, setDepartmentError] = useState("")
     const [success, setSuccess] = useState("");
 
 
@@ -26,8 +26,13 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
         const lastNameValid = lastName.validate();
         const departmentValid = department.trim() !== "";
 
+        if (!departmentValid) {
+            setDepartmentError("Please select a department.");
+        } else {
+            setDepartmentError("")
+        }
+
         if (!firstNameValid || !lastNameValid || !departmentValid) {
-            setError("Please fill in all fields correctly.");
             setSuccess("");
             return;
         }
@@ -37,11 +42,11 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             lastName: lastName.value,
         });
 
-        setError("");
         setSuccess("Form is valid!");
         firstName.inputReset();
         lastName.inputReset();
         setDepartment("");
+        setDepartmentError("");
     };
 
     return (
@@ -56,6 +61,10 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             onChange={firstName.valueChangeHandler}
         />
     </label>
+    {firstName.errors.map((err, i) => (
+        <p key={i} style={{ color: "red"}}>{err}</p>
+    ))}
+    
     <label htmlFor="lastName">Last Name:
         <input
             id="lastName"
@@ -65,6 +74,10 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             onChange={lastName.valueChangeHandler}
         />
     </label>
+    {lastName.errors.map((err, i) => (
+        <p key={i} style={{ color: "red" }}>{err}</p>
+    ))}
+
     <label>
         Department:
         <select
@@ -84,9 +97,11 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
             <option value="IT Technician">IT Technician</option>
         </select>
     </label>
+    {departmentError && <p style={{ color: "red" }}>{departmentError}</p>}
+    
     <input type="submit"/>
     </form>
-    {error && <p style={{ color: "red"}}>{error}</p>}
+
     {success && <p style={{ color: "green" }}>{success}</p>}
     </>
     );
