@@ -2,18 +2,23 @@ import { useState, useEffect } from "react";
 import type { Roles, Employees } from './role';
 import { pixellRiverLeadershipRoles } from './role';
 import { OrganizationForm } from "./organizationForm";
+import {
+    initializeRoles,
+    getRoles,
+    addEmployee,
+} from "../../repository/organizationRepo";
 import "./organization.css";
 
 function OrganizationDisplay({
-    rolesEmployees
+    defaultRolesEmployees
 }: {
-    rolesEmployees: Roles[];
+    defaultRolesEmployees: Roles[];
 }) {
     return (
         <>
             <h2>Leadership and Management</h2>
             <ul>
-                {rolesEmployees.map(role =>(
+                {defaultRolesEmployees.map(role => (
                     <li className="roles" key={role.name}>
                         <strong>{role.name}</strong>
                             <ul >
@@ -32,32 +37,25 @@ function OrganizationDisplay({
 }
 
 export default function OrganizationList () {
-    const [roles, setRoles] = useState<Roles[]>(
-        pixellRiverLeadershipRoles
-    );
+    const [roles, setRoles] = useState<Roles[]>([]);
+
+    useEffect(() => {
+        console.log("Initializing roles...");
+        initializeRoles(pixellRiverLeadershipRoles);
+        setRoles(getRoles());
+    }, []);
 
     const handleAddRole = (
         roleName: string,
         employee: Employees
     ) => {
-        setRoles(prev => {
-            const existingRole = prev.find(role => role.name === roleName);
-
-            if (existingRole) {
-                return prev.map(role =>
-                    role.name === roleName
-                        ? { ...role, employees: [...role.employees, employee] }
-                        : role
-                );
-            };
-
-            return [...prev, { name: roleName, employees: [employee] }];
-        });
+        const updated = addEmployee(roleName, employee);
+        setRoles([...updated]);
     };
 
     return (
         <>
-            <OrganizationDisplay rolesEmployees={roles} />
+            <OrganizationDisplay defaultRolesEmployees={roles} />
             <OrganizationForm onSubmit={handleAddRole} />
         </>
     );
