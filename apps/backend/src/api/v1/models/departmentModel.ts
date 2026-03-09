@@ -1,9 +1,9 @@
-export type Departments = {
+export interface Departments {
     name: string;
     employees: Employees[];
 }
 
-export type Employees = {
+export interface Employees {
     firstName: string;
     lastName: string;
 }

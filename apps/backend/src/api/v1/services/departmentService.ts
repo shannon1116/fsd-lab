@@ -1,76 +1,74 @@
-import { Item } from "../models/itemModel";
+import { Departments, Employees } from "../models/departmentModel";
 
 // In-memory storage for demo purposes
-const items: Item[] = [];
+const departments: Departments[] = [];
+const employees: Employees[] = [];
 
 /**
- * Retrieves all items from storage
+ * Retrieves all departments from storage
  * @returns Array of all items
  */
-export const getAllItems = async (): Promise<Item[]> => {
-    return structuredClone(items);
+export const getAllDepartments = async (): Promise<Departments[]> => {
+    return structuredClone(departments);
 };
 
 /**
- * Creates a new item
- * @param itemData - The data for the new item (name and description)
- * @returns The created item with generated ID
+ * Creates a new department
+ * @param departmentData - The data for the new department (name and employee)
+ * @returns The created department
  */
-export const createItem = async (itemData: {
+export const createDepartment = async (departmentData: {
     name: string;
-    description: string;
-}): Promise<Item> => {
-    // create a new item with generated id
-    const newItem: Item = {
-        id: Date.now().toString(),
-        name: itemData.name,
-        description: itemData.description,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+    employees: Employees[]
+}): Promise<Departments> => {
+    const newDepartment: Departments = {
+        name: departmentData.name,
+        employees: departmentData.employees
     };
 
-    items.push(newItem);
+    departments.push(newDepartment);
 
-    return structuredClone(newItem);
+    return structuredClone(newDepartment);
 };
 
 /**
  * Updates (replaces) an existing item
- * @param id - The ID of the item to update
- * @param itemData - The fields to updates (name and/or description)
- * @returns The updated item
- * @throws Error if item with given ID is not found
+ * @param departmentData - The fields to updates (name and/or description)
+ * @returns The updated department
+ * @throws Error if department with given name is not found
  */
-export const updateItem = async (
-    id: string,
-    itemData: Pick<Item, "name" | "description">
-): Promise<Item> => {
-    const index: number = items.findIndex((item: Item) => item.id === id);
+export const updateDepartment = async (
+    departmentData: Pick<Departments, "name" | "employees">
+): Promise<Departments> => {
+    const index = departments.findIndex((department: Departments) => department.name === department.name);
 
     if (index === -1) {
-        throw new Error(`Item with ID ${id} not found`);
+        throw new Error(`Department ${departmentData.name} not found`);
     }
 
-    items[index] = {
-        ...items[index],
-        ...itemData,
-        updatedAt: new Date(),
+    departments[index] = {
+        ...departments[index],
+        ...departmentData
     };
 
-    return structuredClone(items[index]);
+    return structuredClone(departments[index]);
 };
 
 /**
- * Deletes an item from storage
- * @param id - The ID of the item to delete
- * @throws Error if item with given ID is not found
+ * Creates a new employee
+ * @param employeeData - The data for the new employee (firstName and lastName)
+ * @returns The created employee
  */
-export const deleteItem = async (id: string): Promise<void> => {
-    const index: number = items.findIndex((item: Item) => item.id === id);
+export const createEmployee = async (employeeData: {
+    firstName: string;
+    lastName: string
+}): Promise<Employees> => {
+    const newEmployee: Employees = {
+        firstName: employeeData.firstName,
+        lastName: employeeData.lastName
+    };
 
-    if (index === -1) {
-        throw new Error(`Item with ID ${id} not found`);
-    }
+    employees.push(newEmployee);
 
-    items.splice(index, 1);
+    return structuredClone(newEmployee);
 };
