@@ -40,7 +40,7 @@ export const createDepartment = async (departmentData: {
 export const updateDepartment = async (
     departmentData: Pick<Departments, "name" | "employees">
 ): Promise<Departments> => {
-    const index = departments.findIndex((department: Departments) => department.name === department.name);
+    const index = departments.findIndex((department: Departments) => department.name === departmentData.name);
 
     if (index === -1) {
         throw new Error(`Department ${departmentData.name} not found`);
