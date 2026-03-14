@@ -1,6 +1,8 @@
 // import the express application and type definition
 import express, { Express } from "express";
 
+import departmentRoutes from "./api/v1/routes/departmentRoutes";
+
 // initialize the express application
 const app: Express = express();
 
@@ -12,12 +14,16 @@ interface HealthCheckResponse {
     timestamp: string;
     version: string;
 }
+// Middleware START
 
+// Ensures incoming body is correctly parsed to JSON, otherwise req.body would be undefined
 app.use(express.json());
+
+// Middleware END
 
 // respond to GET request at endpoint "/" with message
 app.get("/", (req, res) => {
-    res.send("Hello, world!");
+    res.send("Hello World");
 });
 
 /**
@@ -36,8 +42,9 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 // Route Imports START
+// "/api/v1/departments" will prefix all department routes
+app.use("/api/v1/departments", departmentRoutes);
 
 // Route Imports END
 
-// export app and server for testing
 export default app;

@@ -1,8 +1,9 @@
 import { Departments, Employees } from "../models/departmentModel";
 
+import { pixellRiverEmployees } from "../repositories/departmentData";
+
 // In-memory storage for demo purposes
-const departments: Departments[] = [];
-const employees: Employees[] = [];
+const departments: Departments[] = pixellRiverEmployees;
 
 /**
  * Retrieves all departments from storage
@@ -19,11 +20,11 @@ export const getAllDepartments = async (): Promise<Departments[]> => {
  */
 export const createDepartment = async (departmentData: {
     name: string;
-    employees: Employees[]
+    employees?: Employees[]
 }): Promise<Departments> => {
     const newDepartment: Departments = {
         name: departmentData.name,
-        employees: departmentData.employees
+        employees: departmentData.employees ?? []
     };
 
     departments.push(newDepartment);
@@ -59,16 +60,19 @@ export const updateDepartment = async (
  * @param employeeData - The data for the new employee (firstName and lastName)
  * @returns The created employee
  */
-export const createEmployee = async (employeeData: {
-    firstName: string;
-    lastName: string
-}): Promise<Employees> => {
+export const addEmployeeToDepartment = async (
+    departmentName: string, 
+    employeeData: { firstName: string; lastName: string}
+): Promise<Departments> => {
+    const department = departments.find(department => department.name === departmentName);
+    if (!department) throw new Error(`Department ${departmentName} not found`);
+
     const newEmployee: Employees = {
         firstName: employeeData.firstName,
         lastName: employeeData.lastName
     };
 
-    employees.push(newEmployee);
+    department.employees.push(newEmployee);
 
-    return structuredClone(newEmployee);
+    return structuredClone(department);
 };
