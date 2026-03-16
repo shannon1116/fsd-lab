@@ -1,11 +1,13 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vite.dev/config/
 export default defineConfig({
-  root: path.resolve(__dirname, 'apps/frontend'), // points to index.html
-  plugins: [react()],                             // no babel plugins needed
-  build: {
-    outDir: path.resolve(__dirname, 'dist/frontend'), // optional output folder
-  },
-});
+  plugins: [
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler']],
+      },
+    }),
+  ],
+})
