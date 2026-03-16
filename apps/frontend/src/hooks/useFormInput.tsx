@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Departments, Employees } from "../components/departments/departmentEmployees/departmentEmployeesData";
 import * as employeeService from "../services/employeeService";
 
@@ -8,19 +8,26 @@ interface UseEmployeeFormResult {
     departmentName: string;
     errors: string[];
     success: string;
+    departments: Departments[];
     valueChangeHandler: (field: string, value: string) => void;
     inputReset: () => void;
     validate: () => boolean;
     getEmployee: () => Employees | null;
-    getDepartments: () => Departments[];
+    submitEmployee: () => Promise<void>;
 }
 
-const useEmployeeForm = (): UseEmployeeFormResult => {
+export const useFormInput = (): UseEmployeeFormResult => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [departmentName, setDepartmentName] = useState("");
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState("");
+    const [departments, setDepartments] = useState<Departments[]>([]);
+
+    // Load departments on mount
+    useEffect(() => {
+        employeeService.getDepartments().then(setDepartments).catch(console.error);
+    }, []);
 
     const valueChangeHandler = (field: string, value: string) => {
         if (field === "firstName") setFirstName(value);
@@ -53,10 +60,29 @@ const useEmployeeForm = (): UseEmployeeFormResult => {
 
     const getEmployee = (): Employees | null => {
         if (!validate()) return null;
-        return { firstName, lastName };
+        return { firstName: firstName.trim(), lastName: lastName.trim() };
     };
 
-    const getDepartments = () => employeeService.getDepartments();
+    // ✅ This is where your submitEmployee goes
+    const submitEmployee = async (): Promise<void> => {
+        if (!validate()) return;
+
+        try {
+            const updatedDepartments = await employeeService.addEmployee(departmentName, {
+                firstName: firstName.trim(),
+                lastName: lastName.trim()
+            });
+
+            setDepartments(updatedDepartments);
+
+            setSuccess("Employee added successfully!");
+            setErrors([]);
+            inputReset();
+        } catch (err: any) {
+            setErrors([err.message || "Failed to add employee"]);
+            setSuccess("");
+        }
+    };
 
     return {
         firstName,
@@ -64,12 +90,11 @@ const useEmployeeForm = (): UseEmployeeFormResult => {
         departmentName,
         errors,
         success,
+        departments,
         valueChangeHandler,
         inputReset,
         validate,
         getEmployee,
-        getDepartments,
+        submitEmployee, // export it so your form can call it
     };
 };
-
-export default useEmployeeForm;

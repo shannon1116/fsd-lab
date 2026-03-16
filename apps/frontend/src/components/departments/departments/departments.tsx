@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Departments, Employees } from "../../departments/departmentEmployees/departmentEmployeesData";
-import { pixellRiverEmployees } from "../../departments/departmentEmployees/departmentEmployeesData";
 import { EmployeeForm } from "../../departments/employees/employees";
 import {
-    initializeDepartments,
     getDepartments,
     addEmployee,
 } from "../../../repository/employeeRepo";
@@ -38,13 +36,24 @@ export default function DepartmentsList() {
     const [departments, setDepartments] = useState<Departments[]>([]);
 
     useEffect(() => {
-        initializeDepartments(pixellRiverEmployees);
-        setDepartments(getDepartments());
+        const fetchDepartments = async () => {
+            try {
+                const departments = await getDepartments();
+                setDepartments(departments);
+            } catch (error) {
+                console.error("Failed to load departments:", error);
+            }
+        };
+        fetchDepartments();
     }, []);
 
-    const handleAddEmployee = (departmentName: string, employee: Employees) => {
-        addEmployee(departmentName, employee);
-        setDepartments(getDepartments()); // refresh list
+    const handleAddEmployee = async (departmentName: string, employee: Employees) => {
+        try {
+            const updatedDepartments = await addEmployee(departmentName, employee);
+            setDepartments(updatedDepartments);
+        } catch (error) {
+            console.error("Failed to add employee:", error);
+        }
     };
 
     return (

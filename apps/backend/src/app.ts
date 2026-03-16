@@ -1,5 +1,6 @@
 // import the express application and type definition
 import express, { Express } from "express";
+import cors from "cors";
 
 import departmentRoutes from "./api/v1/routes/departmentRoutes";
 
@@ -20,6 +21,9 @@ interface HealthCheckResponse {
 app.use(express.json());
 
 // Middleware END
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 // respond to GET request at endpoint "/" with message
 app.get("/", (_req, res) => {

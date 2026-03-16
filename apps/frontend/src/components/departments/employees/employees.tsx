@@ -1,5 +1,5 @@
-import { useState } from "react";
-import useEmployeeForm from "../../../hooks/useFormInput";
+import React from "react";
+import { useFormInput } from "../../../hooks/useFormInput";
 import type { Employees } from "../../../components/departments/departmentEmployees/departmentEmployeesData";
 
 type EmployeeFormProps = {
@@ -7,16 +7,17 @@ type EmployeeFormProps = {
 };
 
 export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
-    const form = useEmployeeForm();
-    const departments = form.getDepartments();
+    const form = useFormInput();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         const employee = form.getEmployee();
         if (!employee) return;
 
-        onSubmit(form.departmentName, employee);
-        form.inputReset();
+        if (onSubmit) onSubmit(form.departmentName, employee);
+
+        await form.submitEmployee();
     };
 
     return (
@@ -50,7 +51,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
                         onChange={(e) => form.valueChangeHandler("departmentName", e.target.value)}
                     >
                         <option value="">Select Department</option>
-                        {departments.map((d) => (
+                        {form.departments.map((d) => (
                             <option key={d.name} value={d.name}>{d.name}</option>
                         ))}
                     </select>

@@ -25,18 +25,14 @@ export const validateFirstName = (firstName: string) =>
 export const validateLastName = (lastName: string) =>
     validateName(lastName, "Last Name");
 
-export const initializeDepartments = (data : Departments[]) =>{
-    return employeeRepo.initializeDepartments(data);
-};
-
-export const getDepartments = (): Departments[] => {
+export const getDepartments = (): Promise<Departments[]> => {
     return employeeRepo.getDepartments();
 };
 
-export const addEmployee = (
+export const addEmployee = async (
     departmentName: string,
     employee: Employees
-): Departments[] => {
+): Promise<Departments[]> => {
     const firstNameValidation = validateFirstName(employee.firstName);
     const lastNameValidation = validateLastName(employee.lastName);
 
@@ -49,7 +45,11 @@ export const addEmployee = (
         throw new Error(errors.join(" "));
     }
 
-    const newEmployee: Employees = { ...employee };
+    const newEmployee: Employees = { 
+        ...employee,
+        firstName: employee.firstName.trim(),
+        lastName: employee.lastName.trim(),
+    };
 
     // Update repo and return the updated departments
     return employeeRepo.addEmployee(departmentName, newEmployee);
