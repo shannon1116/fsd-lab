@@ -1,0 +1,27 @@
+{
+  "name": "fs-lab-4.1",
+  "workspaces": [
+    "apps/*"
+  ],
+  "version": "1.4.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm:start:frontend\" \"npm:start:backend\"",
+    "migrate:backend": "npx --workspace=@fs-lab-4.1/backend prisma migrate dev",
+    "start:frontend": "npm run dev --workspace=@fs-lab-4.1/frontend",
+    "start:backend": "npm start --workspace=@fs-lab-4.1/backend"
+  },
+  "keywords": [],
+  "author": "Shannon Petkau",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1"
+  }
+}

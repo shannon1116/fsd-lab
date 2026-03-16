@@ -7,6 +7,6 @@ const router: Router = express.Router();
 router.get("/", departmentController.getAllDepartments);
 router.post("/", departmentController.createDepartment);
 router.put("/:name", departmentController.updateDepartment);
-router.post("/:name/", departmentController.createEmployee);
+router.post("/:name/", departmentController.addEmployee);
 
 export default router;

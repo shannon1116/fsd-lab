@@ -22,7 +22,7 @@ app.use(express.json());
 // Middleware END
 
 // respond to GET request at endpoint "/" with message
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
     res.send("Hello World");
 });
 
@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
  * Health check endpoint that returns server status information
  * @returns JSON response with server health metrics
  */
-app.get("/api/v1/health", (req, res) => {
+app.get("/api/v1/health", (_req, res) => {
     const healthData: HealthCheckResponse = {
         status: "OK",
         uptime: process.uptime(),

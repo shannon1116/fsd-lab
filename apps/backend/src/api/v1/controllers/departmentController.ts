@@ -10,7 +10,7 @@ import { Departments, Employees } from "../models/departmentModel";
  * @param next - The express middleware chaining function
  */
 export const getAllDepartments = async (
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
@@ -76,10 +76,10 @@ export const updateDepartment = async (
 ): Promise<void> => {
     try {
         // const name: string = req.params.name;
-        const { name } = req.params;
+        const { name } = req.params as { name: string };
 
         // Extract update fields
-        const { employees } = req.body;
+        const { employees } = req.body as { employees: Employees[] };
 
         // create the update item object with the fields to be updated
         const updatedDepartment: Departments = await departmentService.updateDepartment({ name, employees });
@@ -99,33 +99,33 @@ export const updateDepartment = async (
  * @param res  - The express Response
  * @param next - The express middleware chaining function
  */
-export const createEmployee = async (
+export const addEmployee = async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
     try {
-        // Basic validation - check for required fields
-        if (!req.body.firstName) {
-            res.status(HTTP_STATUS.BAD_REQUEST).json({
-                message: "Employee first name is required",
-            });
-        } else if (!req.body.lastName) {
-            res.status(HTTP_STATUS.BAD_REQUEST).json({
-                message: "Employee last name is required",
-            });
-        } else {
-            // Extract only the fields we want (destructuring)
-            // const firstName: string = req.body.firstName;
-            // const lastName: string = req.body.lastName;
-            const { firstName, lastName } = req.body;
+        const { departmentName, firstName, lastName } = req.body;
 
-            const newEmployee: Employees = await departmentService.createEmployee({ firstName, lastName });
-            res.status(HTTP_STATUS.CREATED).json({
-                message: "Employee created successfully",
-                data: newEmployee,
-            });
+        if (!departmentName) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Department name is required" });
+            return;
         }
+        if (!firstName) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Employee first name is required" });
+            return;
+        }
+        if (!lastName) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Employee last name is required" });
+            return;
+        }
+
+        const updatedDepartment = await departmentService.addEmployeeToDepartment(departmentName, { firstName, lastName });
+
+        res.status(HTTP_STATUS.CREATED).json({
+            message: "Employee added successfully",
+            data: updatedDepartment,
+        });
     } catch (error: unknown) {
         next(error);
     }
