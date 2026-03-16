@@ -3,6 +3,7 @@ import express, { Express } from "express";
 import cors from "cors";
 
 import departmentRoutes from "./api/v1/routes/departmentRoutes";
+import organizationRoutes from "./api/v1/routes/organizationRoutes";
 
 // initialize the express application
 const app: Express = express();
@@ -48,6 +49,7 @@ app.get("/api/v1/health", (_req, res) => {
 // Route Imports START
 // "/api/v1/departments" will prefix all department routes
 app.use("/api/v1/departments", departmentRoutes);
+app.use("/api/v1/organizations", organizationRoutes);
 
 // Route Imports END
 

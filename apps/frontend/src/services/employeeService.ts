@@ -51,6 +51,5 @@ export const addEmployee = async (
         lastName: employee.lastName.trim(),
     };
 
-    // Update repo and return the updated departments
     return employeeRepo.addEmployee(departmentName, newEmployee);
 };

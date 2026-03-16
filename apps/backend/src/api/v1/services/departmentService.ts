@@ -2,7 +2,6 @@ import { Departments, Employees } from "../models/departmentModel";
 
 import { pixellRiverEmployees } from "../repositories/departmentData";
 
-// In-memory storage for demo purposes
 const departments: Departments[] = pixellRiverEmployees;
 
 /**

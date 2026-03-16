@@ -3,7 +3,7 @@ import * as departmentController from "../controllers/departmentController";
 
 const router: Router = express.Router();
 
-// "/api/v1/items" prefixes all below routes
+// "/api/v1/departments" prefixes all below routes
 router.get("/", departmentController.getAllDepartments);
 router.post("/", departmentController.createDepartment);
 router.put("/:name", departmentController.updateDepartment);

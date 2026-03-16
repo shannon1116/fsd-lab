@@ -24,7 +24,6 @@ export const useFormInput = (): UseEmployeeFormResult => {
     const [success, setSuccess] = useState("");
     const [departments, setDepartments] = useState<Departments[]>([]);
 
-    // Load departments on mount
     useEffect(() => {
         employeeService.getDepartments().then(setDepartments).catch(console.error);
     }, []);
@@ -63,7 +62,6 @@ export const useFormInput = (): UseEmployeeFormResult => {
         return { firstName: firstName.trim(), lastName: lastName.trim() };
     };
 
-    // ✅ This is where your submitEmployee goes
     const submitEmployee = async (): Promise<void> => {
         if (!validate()) return;
 
@@ -95,6 +93,6 @@ export const useFormInput = (): UseEmployeeFormResult => {
         inputReset,
         validate,
         getEmployee,
-        submitEmployee, // export it so your form can call it
+        submitEmployee,
     };
 };

@@ -28,11 +28,11 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
                     <input
                         type="text"
                         value={form.firstName}
-                        onChange={(e) => form.valueChangeHandler("firstName", e.target.value)}
+                        onChange={(employee) => form.valueChangeHandler("firstName", employee.target.value)}
                     />
                 </label>
-                {form.errors.map((err, i) => (
-                    <p key={i} style={{ color: "red" }}>{err}</p>
+                {form.errors.map((error, i) => (
+                    <p key={i} style={{ color: "red" }}>{error}</p>
                 ))}
 
                 <label>
@@ -40,7 +40,7 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
                     <input
                         type="text"
                         value={form.lastName}
-                        onChange={(e) => form.valueChangeHandler("lastName", e.target.value)}
+                        onChange={(employee) => form.valueChangeHandler("lastName", employee.target.value)}
                     />
                 </label>
 
@@ -48,11 +48,11 @@ export function EmployeeForm({ onSubmit }: EmployeeFormProps) {
                     Department:
                     <select
                         value={form.departmentName}
-                        onChange={(e) => form.valueChangeHandler("departmentName", e.target.value)}
+                        onChange={(employee) => form.valueChangeHandler("departmentName", employee.target.value)}
                     >
                         <option value="">Select Department</option>
-                        {form.departments.map((d) => (
-                            <option key={d.name} value={d.name}>{d.name}</option>
+                        {form.departments.map((department) => (
+                            <option key={department.name} value={department.name}>{department.name}</option>
                         ))}
                     </select>
                 </label>

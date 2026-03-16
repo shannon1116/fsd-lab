@@ -1,94 +1,55 @@
-import { useState } from "react";
-
-import{ useFormInput } from "../../hooks/useFormInput";
-import { validateFirstName, validateLastName, validateRole } from "../../services/organizationService";
+import React from "react";
+import type { Employees } from "../../components/organization/role";
+import { useFormInput } from "../../hooks/useFormRoleInput";
 
 type OrganizationFormProps = {
-    onSubmit: (
-        role: string,
-        employee: { firstName: string; lastName: string }
-    ) => void;
+  onSubmit: (roleName: string, employee: Employees) => void;
 };
 
 export function OrganizationForm({ onSubmit }: OrganizationFormProps) {
-    const firstName = useFormInput(validateFirstName);
-    const lastName = useFormInput(validateLastName);
-    const role = useFormInput(validateRole);
-    
-    const [success, setSuccess] = useState("");
+  const { firstName, lastName, roleName, errors, valueChangeHandler, inputReset, validate, getEmployee } = useFormInput();
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const employee = getEmployee();
+    if (!employee) return;
 
-        const firstNameValid = firstName.validate();
-        const lastNameValid = lastName.validate();
-        const roleValid = role.validate();
+    onSubmit(roleName, employee);
+    inputReset();
+  };
 
-        if (!firstNameValid || !lastNameValid || !roleValid ) {
-            setSuccess("");
-            return;
-        }
-
-        onSubmit(role.value, {
-            firstName: firstName.value,
-            lastName: lastName.value
-        });
-
-        setSuccess("Form is valid!");
-        firstName.inputReset();
-        lastName.inputReset();
-        role.inputReset();
-    };
-
-    return (
-    <>
+  return (
     <form onSubmit={handleSubmit}>
-    <label htmlFor="firstName">First Name:
+      <label>
+        First Name:
         <input
-            id="firstName"
-            type="text"
-            placeholder="Enter First Name"
-            value={firstName.value}
-            onChange={firstName.valueChangeHandler}
+          type="text"
+          value={firstName}
+          onChange={(employee) => valueChangeHandler("firstName", employee.target.value)}
         />
-    </label>
-    
-    {firstName.errors.map((err, i) => (
-        <p key={i} style={{ color: "red" }}>{err}</p>
-    ))}
-    
-    <label htmlFor="lastName">Last Name:
+      </label>
+      <label>
+        Last Name:
         <input
-            id="lastName"
-            type="text"
-            placeholder="Enter Last Name"
-            value={lastName.value}
-            onChange={lastName.valueChangeHandler}
+          type="text"
+          value={lastName}
+          onChange={(employee) => valueChangeHandler("lastName", employee.target.value)}
         />
-    </label>
-    
-    {lastName.errors.map((err, i) => (
-        <p key={i} style={{ color: "red" }}>{err}</p>
-    ))}
-
-    <label htmlFor="role"> Role:
+      </label>
+      <label>
+        Role Name:
         <input
-            id="role"
-            type="text"
-            placeholder="Enter Role"
-            value={role.value}
-            onChange={role.valueChangeHandler}
+          type="text"
+          value={roleName}
+          onChange={(employee) => valueChangeHandler("roleName", employee.target.value)}
         />
-    </label>
-    
-    {role.errors.map((err, i) => (
-        <p key={i} style={{ color: "red" }}>{err}</p>
-    ))}
-    
-    <input type="submit"/>
+      </label>
+      {errors.map((error, index) => (
+        <p key={index} style={{ color: "red" }}>{error}</p>
+      ))}
+      <button type="submit">Submit</button>
     </form>
-    {success && <p style={{ color: "green" }}>{success}</p>}
-    </>
-    );
+  );
 }

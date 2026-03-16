@@ -37,7 +37,6 @@ export const createDepartment = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        // Basic validation - check for required fields
         if (!req.body.name) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Department name is required",
@@ -47,9 +46,6 @@ export const createDepartment = async (
                 message: "Department employee is required",
             });
         } else {
-            // Extract only the fields we want (destructuring)
-            // const name: string = req.body.name;
-            // const employees: array = req.body.employees;
             const { name, employees } = req.body;
 
             const newDepartment: Departments = await departmentService.createDepartment({ name, employees });
@@ -75,13 +71,10 @@ export const updateDepartment = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        // const name: string = req.params.name;
         const { name } = req.params as { name: string };
 
-        // Extract update fields
         const { employees } = req.body as { employees: Employees[] };
 
-        // create the update item object with the fields to be updated
         const updatedDepartment: Departments = await departmentService.updateDepartment({ name, employees });
 
         res.status(HTTP_STATUS.OK).json({
