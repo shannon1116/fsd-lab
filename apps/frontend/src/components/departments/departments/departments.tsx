@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import type { Departments, Employees } from "../../departments/departmentEmployees/departmentEmployeesData";
 import { EmployeeForm } from "../../departments/employees/employees";
 import {
@@ -28,6 +29,15 @@ function DepartmentsDisplay({
                     </li>
                 ))}
             </ul>
+            <Link
+            to="/login">
+                Go to Login
+            </Link>
+            <Link
+                to="/create-user">
+                    Go to Create
+            </Link>
+
         </>
     );
 }

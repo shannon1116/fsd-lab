@@ -3,6 +3,7 @@ import type { Roles, Employees } from "./role";
 import { OrganizationForm } from "./organizationForm";
 import * as organizationService from "../../services/organizationService";
 import "./organization.css";
+import { Link } from "react-router-dom";
 
 function OrganizationDisplay({ roles }: { roles: Roles[] }) {
     return (
@@ -29,6 +30,14 @@ function OrganizationDisplay({ roles }: { roles: Roles[] }) {
                     ))}
                 </ul>
             )}
+            <Link
+                to="/login">
+                    Go to Login
+            </Link>
+            <Link
+                to="/create-user">
+                    Go to Create
+            </Link>
         </>
     );
 }
