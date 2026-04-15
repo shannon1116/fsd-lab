@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { Departments, Employees } from "../../departments/departmentEmployees/departmentEmployeesData";
 import { EmployeeForm } from "../../departments/employees/employees";
 import {
     getDepartments,
     addEmployee,
 } from "../../../repository/employeeRepo";
-import LoginPage from "../../pages/user-login/login-page";
-import { Login } from "../../users/login";
 
 function DepartmentsDisplay({
     defaultDepartmentEmployees

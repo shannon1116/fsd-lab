@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import type { Employee } from "../../../../shared/types/employee";
-import type { User } from "../../../../shared/types/user";
+import { useState } from "react";
+import type { CreateUserDTO } from "../../../../shared/types/createUser";
 import * as userService from "../services/userService";
 
 interface UseCreateUserFormResult {
@@ -10,7 +9,7 @@ interface UseCreateUserFormResult {
     valueChangeHandler: (field: string, value: string) => void;
     inputReset: () => void;
     validate: () => boolean;
-    getUser: () => User | null;
+    getUser: () => CreateUserDTO | null;
     submitUser: () => Promise<void>;
 }
 
@@ -19,10 +18,14 @@ export const useCreateUserFormInput = (): UseCreateUserFormResult => {
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState("");
 
+    // ✅ single source of validation truth
+    const runValidation = (): string[] => {
+        const trimmed = userName.trim();
+        return userService.validateUserName(trimmed).errors;
+    };
+
     const valueChangeHandler = (field: string, value: string) => {
         if (field === "userName") setUserName(value);
-
-        setErrors([]);
         setSuccess("");
     };
 
@@ -33,31 +36,40 @@ export const useCreateUserFormInput = (): UseCreateUserFormResult => {
     };
 
     const validate = (): boolean => {
-        const userNameValidation = userService.validateUserName(userName);
+        const errors = runValidation();
 
-        const allErrors = [...userNameValidation.errors];
+        setErrors(errors);
+        setSuccess(errors.length === 0 ? "Form is valid!" : "");
 
-        setErrors(allErrors);
-        setSuccess(allErrors.length === 0 ? "Form is valid!" : "");
-        return allErrors.length === 0;
+        return errors.length === 0;
     };
 
-    const getUser = (): User | null => {
-        if (!validate()) return null;
-        return { userName: userName.trim() };
+    const getUser = (): CreateUserDTO | null => {
+        const trimmed = userName.trim();
+        const errors = userService.validateUserName(trimmed).errors;
+
+        if (errors.length > 0) return null;
+
+        return { userName: trimmed };
     };
 
     const submitUser = async (): Promise<void> => {
         if (!validate()) return;
 
+        const user = getUser();
+        if (!user) return;
+
         try {
-            const updatedUsers = await userService.addUser(userName);
+            await userService.addUser(user);
 
             setSuccess("User created successfully!");
             setErrors([]);
             inputReset();
-        } catch (err: any) {
-            setErrors([err.message || "Failed to add user"]);
+        } catch (err: unknown) {
+            const message =
+                err instanceof Error ? err.message : "Failed to add user";
+
+            setErrors([message]);
             setSuccess("");
         }
     };

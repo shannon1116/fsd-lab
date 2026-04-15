@@ -1,6 +1,8 @@
 import type { User } from "../../../../shared/types/user";
+import type { CreateUserDTO } from "../../../../shared/types/createUser";
 
 type UsersResponseJSON = { message: string; data: User[] };
+type UserResponseJSON = { message: string; data: User };
 
 const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1`;
 const USER_ENDPOINT = "/users";
@@ -15,25 +17,31 @@ export async function getUsers(): Promise<User[]> {
     }
 
     const json: UsersResponseJSON = await userResponse.json();
-    usersData = json.data; 
+
+    usersData = json.data;
     return json.data;
 }
 
-export const addUser = async (userName: string): Promise<User[]> => {
-    if (usersData.length === 0) {
-        await getUsers(); // ensure data is loaded
+export const addUser = async (user: CreateUserDTO): Promise<User> => {
+    const response = await fetch(`${BASE_URL}${USER_ENDPOINT}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user), // ✅ correct shape
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to add user");
     }
 
-    const userIndex = usersData.findIndex(u => u.userName === userName);
-    if (userIndex === -1) {
-        throw new Error(`User ${userName} not found`);
-    }
+    const json: UserResponseJSON = await response.json();
 
-    const updatedUsers = [...usersData];
-    updatedUsers[userIndex] = {
-        ...updatedUsers[userIndex],
-    };
+    const newUser: User = json.data;
 
-    usersData = updatedUsers;
-    return updatedUsers;
+    // optional cache update
+    usersData = [...usersData, newUser];
+
+    return newUser;
 };

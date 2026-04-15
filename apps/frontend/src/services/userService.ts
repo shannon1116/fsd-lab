@@ -1,9 +1,21 @@
 import type { User } from  "../../../../shared/types/user";
+import type { CreateUserDTO } from "../../../../shared/types/createUser";
 import * as userRepo from "../repository/userRepo";
 
 export interface ValidationResult {
     isValid: boolean;
     errors: string[];
+}
+
+class ValidationError extends Error {
+    public errors: string[];
+
+    constructor(errors: string[]) {
+        super(errors.join(" "));
+        this.errors = errors;
+
+        Object.setPrototypeOf(this, ValidationError.prototype);
+    }
 }
 
 function validateName(value: string, field: string): ValidationResult {
@@ -22,22 +34,24 @@ function validateName(value: string, field: string): ValidationResult {
 export const validateUserName = (userName: string) =>
     validateName(userName, "User Name");
 
-export const addUser = async (
-    userName: string,
-): Promise<User[]> => {
-    const userNameValidation = validateUserName(userName);
+export const addUser = async (user: CreateUserDTO): Promise<User> => {
+    const trimmedName = user.userName.trim();
 
-    const errors = [
-        ...userNameValidation.errors,
-    ];
+    const { errors } = validateUserName(trimmedName);
 
     if (errors.length > 0) {
-        throw new Error(errors.join(" "));
+        throw new ValidationError(errors);
     }
 
-    const newUser: User = { 
-        userName: userName.trim(),
-    };
+    const users = await userRepo.getUsers();
 
-    return userRepo.addUser(newUser);
+    const exists = users.some(
+        u => u.userName.toLowerCase() === trimmedName.toLowerCase()
+    );
+
+    if (exists) {
+        throw new ValidationError(["User already exists."]);
+    }
+
+    return userRepo.addUser({ userName: trimmedName });
 };
