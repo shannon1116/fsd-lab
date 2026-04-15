@@ -18,32 +18,32 @@ async function main() {
         prisma.role.deleteMany(),
     ]);
 
-    // insert users to db
-    const users = await prisma.department.createMany(
+    // insert departments to db
+    const departments = await prisma.department.createMany(
         {
             data: departmentSeedData,
             skipDuplicates: true
         }
     );
 
-    // insert games to db
-    const games = await prisma.role.createMany(
+    // insert roles to db
+    const roles = await prisma.role.createMany(
         {
             data: roleSeedData,
             skipDuplicates: true
         }
     );
 
-    // insert friends to db
-    const friends = await prisma.employee.createMany(
+    // insert employees to db
+    const employees = await prisma.employee.createMany(
         {
             data: employeeSeedData,
             skipDuplicates: true
         }
     );
 
-    // insert reviews to db
-    const reviews = await prisma.leadershipEmployee.createMany(
+    // insert leadershipEmployees to db
+    const leadershipEmployees = await prisma.leadershipEmployee.createMany(
         {
             data: leadershipEmployeeSeedData,
             skipDuplicates: true

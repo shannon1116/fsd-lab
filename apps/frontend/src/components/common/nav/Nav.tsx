@@ -14,6 +14,9 @@ export function Nav(): JSX.Element {
         <NavLink to="/organization">
           Organization
         </NavLink>
+        <NavLink to="/login-options">
+                    Login
+        </NavLink>
       </div>
     </nav>
   )

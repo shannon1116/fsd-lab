@@ -5,6 +5,7 @@ function Organization() {
         <>
         <OrganizationList />
         </>
+        
     )
 }
 

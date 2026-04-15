@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import type { Departments, Employees } from "../../departments/departmentEmployees/departmentEmployeesData";
 import { EmployeeForm } from "../../departments/employees/employees";
 import {
     getDepartments,
     addEmployee,
 } from "../../../repository/employeeRepo";
+import LoginPage from "../../pages/user-login/login-page";
+import { Login } from "../../users/login";
 
 function DepartmentsDisplay({
     defaultDepartmentEmployees
@@ -28,6 +31,15 @@ function DepartmentsDisplay({
                     </li>
                 ))}
             </ul>
+            <Link
+            to="/login">
+                Go to Login
+            </Link>
+            <Link
+                to="/create-user">
+                    Go to Create
+            </Link>
+
         </>
     );
 }
