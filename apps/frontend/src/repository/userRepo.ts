@@ -28,7 +28,7 @@ export const addUser = async (user: CreateUserDTO): Promise<User> => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(user), // ✅ correct shape
+        body: JSON.stringify(user),
     });
 
     if (!response.ok) {
@@ -40,7 +40,6 @@ export const addUser = async (user: CreateUserDTO): Promise<User> => {
 
     const newUser: User = json.data;
 
-    // optional cache update
     usersData = [...usersData, newUser];
 
     return newUser;
